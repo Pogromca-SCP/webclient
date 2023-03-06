@@ -6,6 +6,7 @@ export interface FormParams extends ParentComponentParams {
   onSubmit?: () => void
 }
 
+// Custom form component
 const Form = (props: Readonly<FormParams>) => {
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

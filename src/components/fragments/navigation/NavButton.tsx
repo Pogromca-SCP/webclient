@@ -7,6 +7,7 @@ export interface NavButtonParams extends NavBaseParams {
   disabled?: boolean
 }
 
+// Custom navigation button with dark mode support
 const NavButton = (props: Readonly<NavButtonParams>) => {
   const navigate = useNavigate();
   return <Button className={props.className} onClick={() => navigate(props.to)} type="button" outline={props.outline} disabled={props.disabled}>{props.children}</Button>;

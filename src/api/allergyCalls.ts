@@ -21,8 +21,8 @@ export interface AllergyResponse extends AllergyBase {
 }
 
 const allergyBase = "allergy";
-export const getAllergies = () => get(allergyBase);
-export const getAllergyById = (id: number) => get(`${allergyBase}/${id}`);
-export const createAllergy = (req: Readonly<AllergyRequest>) => post(allergyBase, req);
-export const updateAllergy = (id: number, req: Readonly<AllergyRequest>) => put(`${allergyBase}/${id}`, req);
-export const deleteAllergy = (id: number) => del(`${allergyBase}/${id}`);
+export const getAllergies = (abort: AbortController) => get(allergyBase, abort);
+export const getAllergyById = (id: number, abort: AbortController) => get(`${allergyBase}/${id}`, abort);
+export const createAllergy = (req: Readonly<AllergyRequest>, abort: AbortController) => post(allergyBase, req, abort);
+export const updateAllergy = (id: number, req: Readonly<AllergyRequest>, abort: AbortController) => put(`${allergyBase}/${id}`, req, abort);
+export const deleteAllergy = (id: number, abort: AbortController) => del(`${allergyBase}/${id}`, abort);

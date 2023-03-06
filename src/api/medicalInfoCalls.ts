@@ -22,11 +22,11 @@ export interface MedicalInfoResponse extends BloodBase {
 }
 
 const medicalInfoBase = "medical_info";
-export const getMedicalInfos = () => get(medicalInfoBase);
-export const getMedicalInfoByEmail = (email: string) => get(`${medicalInfoBase}/user/${email}`);
-export const getMedicalInfoById = (id: number) => get(`${medicalInfoBase}/${id}`);
-export const deleteMedicalInfo = (id: number) => del(`${medicalInfoBase}/${id}`);
-export const getBloodById = (id: number) => get(`${medicalInfoBase}/blood/${id}`);
-export const createBlood = (req: Readonly<BloodRequest>) => post(`${medicalInfoBase}/blood`, req);
-export const updateBlood = (id: number, req: Readonly<BloodRequest>) => put(`${medicalInfoBase}/blood/${id}`, req);
-export const deleteBlood = (id: number) => del(`${medicalInfoBase}/blood/${id}`);
+export const getMedicalInfoByEmail = (email: string, abort: AbortController) => get(`${medicalInfoBase}/user/${email}`, abort);
+export const getMedicalInfoByBandCode = (bandCode: string, abort: AbortController) => get(`${medicalInfoBase}/user/bandcode/${bandCode}`, abort);
+export const deleteMedicalInfo = (id: number, abort: AbortController) => del(`${medicalInfoBase}/${id}`, abort);
+
+export const getBloodById = (id: number, abort: AbortController) => get(`${medicalInfoBase}/blood/${id}`, abort);
+export const createBlood = (req: Readonly<BloodRequest>, abort: AbortController) => post(`${medicalInfoBase}/blood`, req, abort);
+export const updateBlood = (id: number, req: Readonly<BloodRequest>, abort: AbortController) => put(`${medicalInfoBase}/blood/${id}`, req, abort);
+export const deleteBlood = (id: number, abort: AbortController) => del(`${medicalInfoBase}/blood/${id}`, abort);

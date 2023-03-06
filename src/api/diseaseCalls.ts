@@ -19,8 +19,8 @@ export interface DiseaseResponse extends DiseaseBase {
 }
 
 const diseaseBase = "disease";
-export const getDiseases = () => get(diseaseBase);
-export const getDiseaseById = (id: number) => get(`${diseaseBase}/${id}`);
-export const createDisease = (req: Readonly<DiseaseRequest>) => post(diseaseBase, req);
-export const updateDisease = (id: number, req: Readonly<DiseaseRequest>) => put(`${diseaseBase}/${id}`, req);
-export const deleteDisease = (id: number) => del(`${diseaseBase}/${id}`);
+export const getDiseases = (abort: AbortController) => get(diseaseBase, abort);
+export const getDiseaseById = (id: number, abort: AbortController) => get(`${diseaseBase}/${id}`, abort);
+export const createDisease = (req: Readonly<DiseaseRequest>, abort: AbortController) => post(diseaseBase, req, abort);
+export const updateDisease = (id: number, req: Readonly<DiseaseRequest>, abort: AbortController) => put(`${diseaseBase}/${id}`, req, abort);
+export const deleteDisease = (id: number, abort: AbortController) => del(`${diseaseBase}/${id}`, abort);

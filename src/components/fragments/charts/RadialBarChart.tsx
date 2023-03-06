@@ -1,6 +1,8 @@
-import { ChartBaseParams, NamedChartData } from "./sharedChartParams";
+import { ChartBaseParams, NamedChartData, customStroke } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
+import { useTranslation } from "react-i18next";
 import { RadialBarChart as Inner, RadialBar, Tooltip, Legend } from "recharts";
+import { customTheme } from "../sharedParams";
 
 export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
   startAngle?: number,
@@ -9,9 +11,11 @@ export interface RadialBarChartParams extends ChartBaseParams<NamedChartData> {
   background?: boolean
 }
 
+// Custom radial bar chart component
 const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
   const darkMode = useDarkMode();
-  const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
+  const { t } = useTranslation();
+  const stroke = customStroke(darkMode);
 
   const data = props.data.map(x => {
     return {
@@ -26,8 +30,8 @@ const RadialBarChart = (props: Readonly<RadialBarChartParams>) => {
       <RadialBar label={{
         fill: props.labelFill,
         position: "insideStart"
-      }} background={props.background} dataKey="value" name="Wartość" />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{
+      }} background={props.background} dataKey="value" name={t("Common.Value")} />
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${customTheme(darkMode)}`} itemStyle={{
         color: stroke
       }} cursor={{
         stroke: stroke

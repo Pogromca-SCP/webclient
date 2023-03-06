@@ -1,14 +1,16 @@
-import { KeyValueSizeSettings, KeyValueChartParams, KeyValueChartData } from "./sharedChartParams";
+import { KeyValueSizeSettings, KeyValueChartParams, KeyValueChartData, customStroke } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Area, Bar, Line, ComposedChart as Inner, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { customTheme } from "../sharedParams";
 
 export interface ComposedChartSettings extends KeyValueSizeSettings {
   kind?: "area" | "bar" | "line"
 }
 
+// Custom composed chart component
 const ComposedChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, ComposedChartSettings>>) => {
   const darkMode = useDarkMode();
-  const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
+  const stroke = customStroke(darkMode);
 
   const display = (x: ComposedChartSettings, index: number) => {
     const fill = darkMode ? x.fillDark : x.fill;
@@ -28,7 +30,7 @@ const ComposedChart = (props: Readonly<KeyValueChartParams<KeyValueChartData, Co
       {props.grid ? <CartesianGrid strokeDasharray="3 3" stroke={stroke} /> : ""}
       <XAxis dataKey="key" stroke={stroke} />
       <YAxis stroke={stroke} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} cursor={{
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${customTheme(darkMode)}`} cursor={{
         stroke: stroke
       }} /> : ""}
       {props.settings.map((set, index) => display(set, index))}

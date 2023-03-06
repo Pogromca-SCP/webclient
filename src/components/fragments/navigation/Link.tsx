@@ -1,10 +1,11 @@
-import { NavBaseParams } from "./sharedNavigationParams";
+import { NavBaseParams, customLink } from "./sharedNavigationParams";
 import { Link as Inner } from "react-router-dom";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
+// Custom link with dark mode support
 const Link = (props: Readonly<NavBaseParams>) => {
   const darkMode = useDarkMode();
-  return <Inner to={props.to} className={`link-${darkMode ? "dark" : "light"} ${props.className}`}>{props.children}</Inner>;
+  return <Inner to={props.to} className={`${customLink(darkMode)} ${props.className}`}>{props.children}</Inner>;
 };
 
 export default Link;

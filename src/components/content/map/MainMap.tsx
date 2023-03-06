@@ -1,152 +1,148 @@
-import { Container, Form } from "react-bootstrap";
+import { Position } from "../../fragments/map/Map";
+import { MarkTypes, EmergencyType, FacilityType } from "../../../api/enumCalls";
+import { useTranslation } from "react-i18next";
 import FormCheck from "../../fragments/forms/FormCheck";
+import { Container, Form } from "react-bootstrap";
+import { ambulanceIcon } from "./MapIcons";
 import { useState, useEffect } from "react";
-import L from "leaflet";
+import { usePopup } from "../../../hooks/usePopup";
+import { useRoles } from "../../../hooks/useAuth";
+import { hasPerm, incidentInfo, ambulanceManagement } from "../../../helpers/authHelper";
+import { getAccidents, AccidentReportResponse } from "../../../api/accidentReportCalls";
+import { getAmbulances, AmbulanceResponse } from "../../../api/ambulanceCalls";
+import OkPopup from "../../fragments/popups/OkPopup";
+import { geolocationError } from "../sharedStrings";
+import { getFacilities, FacilityResponse } from "../../../api/facilityCalls";
 import MapView from "../../fragments/map/MapView";
 
-enum MarkTypes {
-  None = 0,
-  Incident = 1,
-  Terrorist = 2,
-  Fire = 4,
-  Ambulance = 8,
-  Hospital = 16,
-  Police = 32,
-  Alert = 64,
-  Covid = 128
+interface Mark extends Position {
+  type: MarkTypes
 }
-
-const accidentIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Map_pin_icon.svg/1504px-Map_pin_icon.svg.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const ambulanceIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const facilityIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/8/8115.png?w=826&t=st=1666208765~exp=1666209365~hmac=e2449742142cbe00032697d49c7d236b48769e71bb872561825ba786688ddfc3",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const terroristIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://freesvg.org/img/Map-Warning-Icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const fireIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn3.iconfinder.com/data/icons/map-markers-2-1/512/danger-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const alertIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn2.iconfinder.com/data/icons/danger-problems-2/512/xxx013-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const policeIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-20-512.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const covidIcon = L.icon({
-  iconSize: [25, 41],
-  iconAnchor: [10, 41],
-  popupAnchor: [2, -40],
-  iconUrl: "https://img.icons8.com/cotton/344/coronavirus-hospital-map-pin--v2.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
-});
-
-const positions = [
-  { coords: [52.22, 21.01], desc: "Zdarzenie", type: MarkTypes.Incident, icon: accidentIcon },
-  { coords: [52.23, 21.0], desc: "Atak terrorystyczny", type: MarkTypes.Terrorist, icon: terroristIcon },
-  { coords: [52.21, 21.02], desc: "Pożar", type: MarkTypes.Fire, icon: fireIcon },
-  { coords: [52.12, 21.05], desc: "Karetka", type: MarkTypes.Ambulance, icon: ambulanceIcon },
-  { coords: [52.02, 20.99], desc: "Szpital", type: MarkTypes.Hospital, icon: facilityIcon },
-  { coords: [52.32, 21.00], desc: "Posterunek policji", type: MarkTypes.Police, icon: policeIcon },
-  { coords: [52.32, 21.00], desc: "Alert", type: MarkTypes.Alert, icon: alertIcon },
-  { coords: [52.12, 21.23], desc: "Zdarzenie 2", type: MarkTypes.Incident, icon: accidentIcon },
-  { coords: [52.22, 20.87], desc: "Karetka 2", type: MarkTypes.Ambulance, icon: ambulanceIcon },
-  { coords: [52.26, 19.98], desc: "Ognisko Covid", type: MarkTypes.Covid, icon: covidIcon }
-];
 
 interface MapFormParams {
   filters: MarkTypes,
   setFilters: (x: MarkTypes) => void
 }
 
+// Main map display component
 const MapForm = (props: Readonly<MapFormParams>) => {
+  const { t } = useTranslation();
+  const values = [];
+
+  for (const key in EmergencyType.values) {
+    const vals = EmergencyType.values[key];
+    const mark = vals.markType ?? MarkTypes.None;
+    values.push(<FormCheck label={t(`${EmergencyType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+  }
+
+  for (const key in FacilityType.values) {
+    const vals = FacilityType.values[key];
+    const mark = vals.markType ?? MarkTypes.None;
+    values.push(<FormCheck label={t(`${FacilityType.name}.${key}`)} key={key} value={props.filters & mark} onChange={e => props.setFilters(props.filters ^ mark)} icon={vals.icon} />);
+  }
+
   return (
     <Container>
-      <h1 className="mt-3">Mapa</h1>
-      <h3 className="mb-3">Filtry (pokaż):</h3>
-      <Form>
-        <FormCheck label="Zdarzenia" value={props.filters & MarkTypes.Incident} onChange={e => props.setFilters(props.filters ^ MarkTypes.Incident)} />
-        <FormCheck label="Ataki terrorystyczne" value={props.filters & MarkTypes.Terrorist} onChange={e => props.setFilters(props.filters ^ MarkTypes.Terrorist)} />
-        <FormCheck label="Pożary" value={props.filters & MarkTypes.Fire} onChange={e => props.setFilters(props.filters ^ MarkTypes.Fire)} />
-        <FormCheck label="Karetki" value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} />
-        <FormCheck label="Szpitale" value={props.filters & MarkTypes.Hospital} onChange={e => props.setFilters(props.filters ^ MarkTypes.Hospital)} />
-        <FormCheck label="Posterunki policji" value={props.filters & MarkTypes.Police} onChange={e => props.setFilters(props.filters ^ MarkTypes.Police)} />
-        <FormCheck label="Alerty" value={props.filters & MarkTypes.Alert} onChange={e => props.setFilters(props.filters ^ MarkTypes.Alert)} />
-        <FormCheck label="Ognisko Covid" value={props.filters & MarkTypes.Covid} onChange={e => props.setFilters(props.filters ^ MarkTypes.Covid)} />
+      <h1 className="mt-3">{t("Map.Map")}</h1>
+      <h3 className="mb-3">{t("Map.Filters")}:</h3>
+      <Form className="w-75">
+        <FormCheck label={t("Ambulance.Ambulance")} value={props.filters & MarkTypes.Ambulance} onChange={e => props.setFilters(props.filters ^ MarkTypes.Ambulance)} icon={ambulanceIcon} />
+        {values}
       </Form>
     </Container>
   );
 };
 
+// Map view wrapper for main map component
 const MainMap = () => {
-  //const [accidents, setAccidents] = useState([]);
-  //const [ambulances, setAmbulances] = useState([]);
-  //const [facilities, setFacilities] = useState([]);
-  const [filters, setFilters] = useState(7);
+  const [coords, setCoords] = useState<[number, number]>([0, 0]);
+  const [loaded, setLoaded] = useState(false);
+  const [positions, setPositions] = useState<Mark[]>([]);
+  const [facilities, setFacilities] = useState<Mark[]>([]);
+  const [filters, setFilters] = useState(MarkTypes.All);
   const [update, setUpdate] = useState(false);
+  const { t } = useTranslation();
+  const popup = usePopup();
+  const roles = useRoles();
+  const incidentAccess = hasPerm(roles, incidentInfo);
+  const ambulanceAccess = hasPerm(roles, ambulanceManagement);
 
+  // Loads and regularly updates "movable" objects
   useEffect(() => {
-    console.log("Ambulances update");
-    console.log("Emergencies update");
+    const abort = new AbortController();
+    const accReq = getAccidents(abort).then(res => res.json());
+    const ambReq = getAmbulances(abort).then(res => res.json());
+
+    Promise.all([accReq, ambReq]).then((data: [AccidentReportResponse[], AmbulanceResponse[]]) => {
+      if (data) {
+        setPositions([...data[0].map(a => ({
+          coords: [a.location.latitude, a.location.longitude] as [number, number],
+          desc: [t("Report.Report"), t(`EmergencyType.${a.emergencyType}`), a.address],
+          type: EmergencyType.values?.[a.emergencyType].markType ?? MarkTypes.None,
+          icon: EmergencyType.values?.[a.emergencyType].icon,
+          to: incidentAccess ? `/reports/${a.accidentId}` : undefined
+        })), ...data[1].map(a => ({
+          coords: [a.currentLocation.latitude, a.currentLocation.longitude] as [number, number],
+          desc: [t("Ambulance.Ambulance"), a.licensePlate],
+          type: MarkTypes.Ambulance,
+          icon: ambulanceIcon,
+          to: ambulanceAccess ? `/ambulances/${a.licensePlate}` : undefined
+        }))]);
+      }
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
     const timeout = setTimeout(() => setUpdate(!update), 15000);
 
     return () => {
       clearTimeout(timeout);
+      abort.abort();
     };
-  }, [update]);
+  }, [update, t, ambulanceAccess, incidentAccess]);
 
+  // Centers map on current user's location
+  useEffect(() => navigator.geolocation.getCurrentPosition(pos => {
+    setCoords([pos.coords.latitude, pos.coords.longitude]);
+    setLoaded(true);
+  }, err => {
+    setLoaded(true);
+    popup(<OkPopup text={geolocationError} />);
+  }), [popup]);
+
+  // Loads "static" objects
   useEffect(() => {
-    console.log("Facilities update");
-  }, []);
+    const abort = new AbortController();
 
-  const marks = [...positions].filter(p => p.type & filters).map((e: any) => {
-    return {
-      coords: e.coords,
-      desc: e.desc,
-      icon: e.icon
-    };
-  });
+    getFacilities(abort).then(res => res.json()).then((data: FacilityResponse[]) => {
+      if (data) {
+        setFacilities(data.map(f => ({
+          coords: [f.location.latitude, f.location.longitude],
+          desc: [t("Facility.Facility"), f.name, f.address],
+          type: FacilityType.values?.[f.facilityType].markType ?? MarkTypes.None,
+          icon: FacilityType.values?.[f.facilityType].icon,
+          to: `/facilities/${f.facilityId}`
+        })));
+      }
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
 
-  return <MapView center={[52.222, 21.015]} initialZoom={10} element={<MapForm filters={filters} setFilters={setFilters} />} marks={marks} />;
+    return () => abort.abort();
+  }, [t]);
+
+  const marks = [...positions, ...facilities].filter(p => p.type & filters).map(e => ({
+    coords: e.coords,
+    desc: e.desc,
+    icon: e.icon,
+    to: e.to
+  }));
+
+  return <MapView isLoaded={loaded} center={coords} initialZoom={10} element={<MapForm filters={filters} setFilters={setFilters} />} marks={marks} />;
 };
 
 export default MainMap;

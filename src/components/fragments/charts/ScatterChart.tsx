@@ -1,6 +1,7 @@
-import { NamedChartDataBase, GridChartParams } from "./sharedChartParams";
+import { NamedChartDataBase, GridChartParams, customStroke } from "./sharedChartParams";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { ScatterChart as Inner, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Scatter, Legend } from "recharts";
+import { customTheme } from "../sharedParams";
 
 export interface ScatterPointData {
   x: number,
@@ -21,9 +22,10 @@ export interface ScatterChartParams extends GridChartParams<ScatterChartData> {
   zAxisUnit: string
 }
 
+// Custom scatter chart component
 const ScatterChart = (props: Readonly<ScatterChartParams>) => {
   const darkMode = useDarkMode();
-  const stroke = darkMode ? "var(--dark-text)" : "var(--light-text)";
+  const stroke = customStroke(darkMode);
 
   return (
     <Inner width={props.width} height={props.height} syncId={props.syncId} margin={props.margin} onClick={props.onClick}>
@@ -31,7 +33,7 @@ const ScatterChart = (props: Readonly<ScatterChartParams>) => {
       <XAxis dataKey="x" name={props.xAxisName} unit={props.xAxisUnit} stroke={stroke} />
       <YAxis dataKey="y" name={props.yAxisName} unit={props.yAxisUnit} stroke={stroke} />
       <ZAxis dataKey="z" name={props.zAxisName} unit={props.zAxisUnit} />
-      {props.tooltip ? <Tooltip wrapperClassName={`bg-${darkMode ? "dark" : "light"}`} itemStyle={{
+      {props.tooltip ? <Tooltip wrapperClassName={`bg-${customTheme(darkMode)}`} itemStyle={{
         color: stroke
       }} cursor={{
         stroke: stroke

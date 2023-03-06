@@ -1,65 +1,77 @@
 import { useState } from "react";
-import { loginUser, JwtResponse } from "../../../api/authCalls";
 import { useLogin } from "../../../hooks/useAuth";
-import { Container, Row, Alert } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { useAbort } from "../../../hooks/useAbort";
+import { loginUser, JwtResponse } from "../../../api/authCalls";
+import { missingDataError, networkError } from "../sharedStrings";
+import { Container, Row } from "react-bootstrap";
 import Form from "../../fragments/forms/Form";
 import Email from "../../fragments/forms/api/Email";
 import Password from "../../fragments/forms/api/Password";
-import Button from "../../fragments/util/Button";
+import Submit from "../../fragments/forms/Submit";
+import Error from "../../fragments/forms/Error";
+import Link from "../../fragments/navigation/Link";
 
+// Login form
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>("");
   const login = useLogin();
+  const { t } = useTranslation();
+  const abort = useAbort();
 
   const handleSubmit = () => {
-    let status = -1;
+    setError(undefined);
     
     loginUser({
       email: email,
       password: password,
-    }).then(res => {
-      status = res.status;
-      return res.json();
-    }).then((data: JwtResponse) => {
-      if (status === 200) {
+    }, abort).then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      setError("Error.IncorrectLogin");
+      return undefined;
+    }).then((data?: JwtResponse) => {
+      if (data) {
         if (data.token && data.roles && data.email) {
-          login(data.token, data.roles, data.email);
+          login(data.token, data.roles, data.email, data.userId);
         } else {
-          setError("Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.");
+          setError(missingDataError);
         }
-      } else {
-        setError("Wystąpił nieznany błąd. Spróbuj ponownie później.");
       }
     }
     ).catch(err => {
+      if (abort.signal.aborted) {
+        return;
+      }
+      
       console.error(err);
-      setError("Nieprawidłowy email lub hasło.");
+      setError(networkError);
     });
   };
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center">Logowanie</h1>
+      <h1 className="text-center">{t("Login.Login")}</h1>
       <Form onSubmit={handleSubmit}>
         <Row className="justify-content-center">
-          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label="Email" />
+          <Email id="email" required onChange={e => setEmail(e.target.value)} value={email} className="mb-3 w-50" label={t("Person.Email")}/>
         </Row>
         <Row className="justify-content-center">
-          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label="Hasło" />
+          <Password id="password" required onChange={e => setPassword(e.target.value)} value={password} className="mb-3 w-50" label={t("Person.Password")} />
         </Row>
-        <Row className="justify-content-center">
-          <Button className="my-3 w-25" type="submit">Zaloguj się</Button>
+        <Row className="justify-content-center my-3">
+          <Submit className="w-25" canSubmit={error !== undefined}>{t("Login.SignIn")}</Submit>
         </Row>
-        {error ? (
-          <Row className="justify-content-center mt-5">
-            <Alert variant="danger" className="w-50">
-              <Alert.Heading>Błąd</Alert.Heading>
-              <p>{error}</p>
-            </Alert>
-          </Row>
-        ) : ""}
+        <Row className="justify-content-center mx-3">
+          <Error className="mt-3 w-50" error={error} />
+        </Row>
+        <Row className="text-center">
+          <Link to="/forgotpassword">{t("Password.Forgot")}</Link>
+        </Row>
       </Form>
     </Container>
   );

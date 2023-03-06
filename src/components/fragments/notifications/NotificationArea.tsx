@@ -2,6 +2,7 @@ import { useNotificationsManager } from "../../../hooks/useNotify";
 import { ToastContainer } from "react-bootstrap";
 import Notification from "./Notification";
 
+// Container area for app notifications
 const NotificationArea = () => {
   const notifManager = useNotificationsManager();
 

@@ -1,6 +1,7 @@
 import { RawTextControlParams } from "./sharedFormsParams";
 import { FormGroup, Form } from "react-bootstrap";
 
+// Custom form control with phone number pattern check
 const FormPhoneNumber = (props: Readonly<RawTextControlParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>

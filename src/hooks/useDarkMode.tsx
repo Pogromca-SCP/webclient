@@ -1,14 +1,19 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getCookieValue, setCookieValue } from "../helpers/cookieHelper";
+import { getCookieValue, truth, setCookieValue } from "../helpers/cookieHelper";
 
 // Handles theme changes for document body
 const toggleBodyClasses = (isDark: boolean) => {
+  const darkBackground = "bg-dark";
+  const darkText = "text-dark";
+  const lightBackground = "bg-light";
+  const lightText = "text-light";
+
   if (isDark) {
-    document.body.classList.add("bg-dark", "text-light");
-    document.body.classList.remove("bg-light", "text-dark");
+    document.body.classList.add(darkBackground, lightText);
+    document.body.classList.remove(lightBackground, darkText);
   } else {
-    document.body.classList.add("bg-light", "text-dark");
-    document.body.classList.remove("bg-dark", "text-light");
+    document.body.classList.add(lightBackground, darkText);
+    document.body.classList.remove(darkBackground, lightText);
   }
 };
 
@@ -23,12 +28,17 @@ const DarkModeContext = createContext(defaultContext);
 export const useDarkModeManager = () => useContext(DarkModeContext);
 export const useDarkMode = () => useDarkModeManager().isDark;
 
+// Additional helper consts
+const darkModeCookie = "useDarkMode";
+export const dark = "dark";
+export const light = "light";
+
 // Dark mode hook provider component
 export const DarkModeProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => {
-  const [darkMode, setDarkMode] = useState(getCookieValue("useDarkMode") === "true");
+  const [darkMode, setDarkMode] = useState(getCookieValue(darkModeCookie) === truth);
 
   useEffect(() => {
-    setCookieValue("useDarkMode", JSON.stringify(darkMode));
+    setCookieValue(darkModeCookie, JSON.stringify(darkMode));
     toggleBodyClasses(darkMode);
   }, [darkMode]);
 

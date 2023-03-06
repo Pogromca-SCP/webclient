@@ -1,0 +1,366 @@
+{
+    "RoleName": {
+        "ADMIN": "Administrator",
+        "USER": "User",
+        "EMPLOYEE": "Employee",
+        "MEDIC": "Paramedic",
+        "DISPATCHER": "Dispatcher",
+        "AMBULANCE_MANAGER": "Ambulance manager"
+    },
+    "RhType": {
+        "PLUS": "Plus",
+        "MINUS": "Minus"
+    },
+    "BloodType": {
+        "A": "A",
+        "B": "B",
+        "ZERO": "ZERO",
+        "AB": "AB"
+    },
+    "EmployeeType": {
+        "DISPATCHER": "Dispatcher",
+        "MEDIC": "Paramedic",
+        "AMBULANCE_MANAGER": "Ambulance manager"
+    },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Car accident",
+        "FLOOD": "Flood",
+        "FIRE": "Fire",
+        "UNKNOWN": "Unknown",
+        "HEART_ATTACK": "Heart attack",
+        "SUICIDE": "Suicide",
+        "COVID": "Covid"
+    },
+    "AllergyType": {
+        "SKIN_CONTACT": "Skin contact",
+        "INGESTION": "Ingestion",
+        "INJECTION": "Injection",
+        "INHALATION": "Inhalation"
+    },
+    "AmbulanceType": {
+        "A": "A",
+        "B": "B",
+        "C": "C"
+    },
+    "AmbulanceStateType": {
+        "FAILURE": "Failure",
+        "MAINTENANCE": "Maintenance",
+        "AVAILABLE": "Available",
+        "ON_ACTION": "In action",
+        "CREW_BRAKE": "Crew break"
+    },
+    "AmbulanceClass": {
+        "BASIC": "Basic",
+        "SPECIAL": "Special",
+        "TRANSPORT": "Transport",
+        "NEONATOLOGY": "Neonatology"
+    },
+    "FacilityType": {
+        "HOSPITAL": "Hospital",
+        "POLICE_STATION": "Police station",
+        "FIRE_UNIT": "Fire unit",
+        "GUARD_UNIT": "Guard unit",
+        "AED": "AED"
+    },
+    "IncidentStatusType": {
+        "NEW": "New",
+        "ASSIGNED": "Assigned",
+        "ACCEPTED": "Accepted",
+        "REJECTED": "Rejected",
+        "CLOSED": "Closed"
+    },
+    "ItemType": {
+        "SINGLE_USE": "Single use",
+        "MEDICAL": "Medical",
+        "MULTI_USE": "Multi use",
+        "AMBULANCE_EQUIPMENT": "Ambulance equipment"
+    },
+    "TutorialType": {
+        "IN_CASE_OF_DEATH_EMERGENCY": "In case of death emergency",
+        "GENERAL": "General",
+        "COURSE": "Course"
+    },
+    "BackupType": {
+        "POLICE": "Police",
+        "FIRE_FIGHTERS": "Fire fighters",
+        "AMBULANCE": "Ambulance",
+        "POLICE_AMBULANCE": "Police and ambulance",
+        "POLICE_FIRE": "Police and fire fighters",
+        "AMBULANCE_FIRE": "Ambulance and fire fighters",
+        "POLICE_AMBULANCE_FIRE": "Police, ambulance and fire fighters"
+    },
+    "ItemUnit": {
+        "COUNT": "Count",
+        "VOLUME": "Volumes",
+        "BOX": "Boxes"
+    },
+    "VictimStatus": {
+        "STABLE": "Stable",
+        "UNSTABLE": "Unstable",
+        "DECEASED": "Deceased"
+    },
+    "Gender": {
+        "MALE": "Male",
+        "FEMALE": "Female",
+        "OTHER": "Other"
+    },
+    "Ambulance": {
+        "Ambulances": "Ambulances",
+        "Ambulance": "Ambulance",
+        "LicensePlate": "License plate",
+        "Class": "Kind of ambulance",
+        "Seats": "Maximum number of paramedics",
+        "Type": "Type of ambulance",
+        "Status": "Ambulance status",
+        "History": "History of the ambulance",
+        "Path": "Ambulance path",
+        "Confirm": "Are you sure you want to remove this ambulance?",
+        "ChangingState": "Change status in ambulance",
+        "ChangeState": "Change ambulance status",
+        "Exists": "Ambulance with this license plate already exists.",
+        "SameState": "This ambulance is already in this state",
+        "Adding": "Add ambulance",
+        "Editing": "Edit ambulance",
+        "Add": "Add ambulance",
+        "Incident": "Current incident",
+        "RelatedIncidents": "Related incidents"
+    },
+    "Report": {
+        "Reports": "Reports",
+        "Report": "Report",
+        "Consious": "Is victim conscious?",
+        "Breathing": "Is victim breathing?",
+        "Date": "Date",
+        "Description": "Description",
+        "Type": "Type of accident",
+        "VictimsCount": "Number of victims",
+        "ConfirmRemove": "Are you sure you want to delete this report?",
+        "ConfirmCreate": "Are you sure you want to report incident?",
+        "ConfirmEdit": "Are you sure you want to save those changes?",
+        "DangerScale": "Danger scale",
+        "StatusType": "Incident status",
+        "Justification": "Justification",
+        "BandCode": "Band code",
+        "Create": "Report incident",
+        "Location": "Incident location",
+        "Address": "Address",
+        "Assign": "Assign ambulance",
+        "Assigned": "Assigned",
+        "Details": "Incident details",
+        "Victims": "Victims"
+    },
+    "Person": {
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "TrustedPerson": "Trusted person",
+        "MedicalData": "Medical data",
+        "UserData": "User data",
+        "PhoneNumber": "Phone number",
+        "Birthdate": "Date of birth",
+        "Email": "Email",
+        "Password": "Password",
+        "StartDuty": "Start duty",
+        "FinishDuty": "Finish duty",
+        "Account": "Account",
+        "MyData": "My data",
+        "Add": "Add employee",
+        "Adding": "Add employee",
+        "Role": "Role",
+        "Gender": "Gender"
+    },
+    "Login": {
+        "Login": "Login",
+        "SignIn": "Sign in",
+        "Register": "Registration",
+        "SignUp": "Sign up",
+        "CollectData": "Why do we collect this data?",
+        "NecessaryData": "All of the data above is necessary for proper provision of our services.",
+        "LogOff": "Log off",
+        "LoggedInto": "Successfully logged into the account",
+        "LoggedError": "Login was successful but permissions are missing.",
+        "LogOut": "Logout",
+        "LoggedOut": "Successfully logged out of account",
+        "AllCapabilities": "Do you want to be able to use all the possibilities of our platform? Log in to your account now!",
+        "Error": "Login error"
+    },
+    "Allergy": {
+        "Allergies": "Allergies",
+        "Name": "Allergy name",
+        "Type": "Type of the allergy",
+        "Other": "Other details",
+        "Adding": "Add allergy",
+        "Editing": "Edit allergy",
+        "ConfirmRemove": "Are you sure you want to remove this allergy?"
+    },
+    "Disease": {
+        "Diseases": "Diseases",
+        "Name": "Disease name",
+        "ShareWithBand": "Shared from band?",
+        "Description": "Disease description",
+        "Adding": "Add disease",
+        "Editing": "Edit disease",
+        "ConfirmRemove": "Are you sure you want to remove this disease?"
+    },
+    "Error": {
+        "Error": "Error",
+        "DifferentPasswords": "Repeated password is different from original.",
+        "RegistrationFailed": "Registration failed. Try again.",
+        "NoResponseServer": "The server response was corrupted or partially lost. Try again.",
+        "UnknownError": "An unknown error has occurred. Please try again later.",
+        "IncorrectLogin": "Incorrect email or password.",
+        "LoadingProblem": "There was a problem loading the data. Try again.",
+        "EmptyValue": "This value cannot be empty.",
+        "Past": "Only a date in the past can be given.",
+        "Network": "Cannot connect with the server. Check your Internet connection.",
+        "PostRegisterFail": "Registration was successful but an error has occured while logging in. Try to log in again.",
+        "NoDispatcherFound": "No available dispatcher found.",
+        "ScheduleEnd": "Selected hour must be greater that the first.",
+        "MailNotFound": "Provided email was not found in our database.",
+        "IncorrectPassword": "Provided password is incorrect.",
+        "IncorrectToken": "Provided token is incorrect.",
+        "ExpiredToken": "Provided token is expired.",
+        "LocationBlocked": "Location usage is blocked for this website. Please, enable it if you want the map to be centered on your location.",
+        "NoData": "No available data found."
+    },
+    "Blood": {
+        "Type": "Blood type",
+        "Rh": "Rh type"
+    },
+    "Password": {
+        "Check": "Repeat new password",
+        "Change": "Change password",
+        "Changed": "Your password successfully changed.",
+        "Old": "Old password",
+        "New": "New password",
+        "Forgot": "I forgot my password",
+        "Reseting": "Password recovery",
+        "Reseted": "Your password successfully changed.",
+        "Reset": "Reset password",
+        "Email": "Enter email address. We will send you a token to reset your password",
+        "Token": "Enter the token you received on your email",
+        "Repeat": "Repeat password"
+    },
+    "HomePage": {
+        "HomePage": "Home page",
+        "Report24h": "Last 24 hours reports",
+        "Incidents": "Accident types",
+        "OpenMap": "Open map",
+        "SaveLife": "Help us save human lives now!",
+        "Welcome": "Welcome to GARY, man's new best friend.",
+        "SeeAccident": "You see the accident? React right now!",
+        "GARY": "GARY is your new best friend",
+        "CreateAccount": "Creating an account is simple and takes only a few minutes, and access to the application can save your life.",
+        "ReportAccidentAnywhere": "Report an incident from anywhere",
+        "ReportAccidentFromApp": "You can report an accident, terrorist attack or other incident anywhere via a browser or mobile application.",
+        "GiveHelp": "Give first aid",
+        "WatchTutorials": "Browse through the numerous first aid guides and use the acquired knowledge to save someone's life.",
+        "ReportIncident": "Report an incident",
+        "Dispositor": "Home page",
+        "Admin": "Ambulance manager's home page",
+        "ChangeTheme": "Change theme",
+        "AmbulanceAvailable": "Available",
+        "AmbulanceUnavailable": "Unavailable",
+        "AmbulancesAvailable": "Ambulances available",
+        "ReportAccepted": "Accepted",
+        "ReportPending": "Pending/Rejected",
+        "ReportsAccepted": "Accepted reports",
+        "AmbulancesState": "Ambulances state"
+    },
+    "Cookies": {
+        "Info": "This site uses cookies. Make the only right decision.",
+        "Agree": "I agree"
+    },
+    "Facility": {
+        "Facilities": "Facilities",
+        "Facility": "Facility",
+        "Name": "Facility name",
+        "Type": "Facility type",
+        "ConfirmRemove": "Are you sure you want to remove this facility?",
+        "Add": "Add facility",
+        "Adding": "Add facility",
+        "Editing": "Edit facility"
+    },
+    "Common": {
+        "Ok": "Ok",
+        "Flag": "Flag",
+        "Icon": "Icon",
+        "NoResults": "No results",
+        "Search": "Search",
+        "Yes": "Yes",
+        "No": "No",
+        "Since": "Since",
+        "Until": "Until",
+        "Add": "Add",
+        "Edit": "Edit",
+        "Back": "Back",
+        "Save": "Save",
+        "SaveChanges": "Save changes",
+        "Remove": "Remove",
+        "Cancel": "Cancel",
+        "Value": "Value",
+        "Details": "Details",
+        "Contents": "Contents",
+        "Thumbnail": "Thumbnail",
+        "Send": "Send"
+    },
+    "Map": {
+        "Map": "Map",
+        "Filters": "Filters",
+        "Location": "Location"
+    },
+    "Tutorial": {
+        "Tutorials": "Tutorials",
+        "Opinion": "Was this tutorial helpful? Share your opinion.",
+        "Average": "Average score:"
+    },
+    "Equipment": {
+        "Equipment": "Equipment",
+        "Ambulance": "Ambulance equipment",
+        "Adding": "Add equipment item",
+        "Add": "Add equipment item",
+        "Type": "Item type",
+        "Name": "Item name",
+        "Description": "Description",
+        "Manufacturer": "Manufacturer",
+        "Expiration": "Expiration Date",
+        "ConfirmRemove": "Are you sure you want to delete this item?"
+    },
+    "Medic": {
+        "Medics": "Medics",
+        "Assigned": "Assigned medics",
+        "Details": "Paramedic details",
+        "Assign": "Assign medics",
+        "Unassign": "Unassign"
+    },
+    "Schedule": {
+        "Schedule": "Schedule",
+        "Date": "Date",
+        "SetEvent": "Setting time",
+        "Day1": "Mon.",
+        "Day2": "Tue.",
+        "Day3": "Wed.",
+        "Day4": "Thu.",
+        "Day5": "Fri."
+    },
+    "Backup": {
+        "Backup": "Additional Backup",
+        "Type": "Backup type",
+        "Time": "Updated at",
+        "Accepted": "Accepted",
+        "Justification": "Justification",
+        "ConfirmRemove": "Are you sure you want to delete this backup?",
+        "Create": "Create backup",
+        "Adding": "Add backup",
+        "Editing": "Edit backup"
+    },
+    "Staff": {
+        "Schedules": "Employee schedule",
+        "Workers": "Employee list"
+    },
+    "Victim": {
+        "Create": "Add victim",
+        "Status": "Status",
+        "Adding": "Add victim",
+        "Editing": "Edit victim"
+    }
+}

@@ -9,11 +9,11 @@ export interface RatingParams {
   onHover?: (x: number) => void
 }
 
+// Custom 5-star rating component
 const Rating = (props: Readonly<RatingParams>) => {
   const calcRating = (x: number) => {
-    const normalized = x * 5;
-    const floored = Math.floor(normalized);
-    return normalized % floored >= 0.5 ? floored + 0.5 : floored;
+    const floored = Math.floor(x);
+    return x % floored >= 0.5 ? floored + 0.5 : floored;
   };
 
   return <Inner emptySymbol={<AiOutlineStar size={35} />} fullSymbol={<AiFillStar size={35} />} onClick={props.onClick} onChange={props.onChange} onHover={props.onHover} initialRating={props.initialValue && props.initialValue > 0 ? calcRating(props.initialValue) : 0} readonly={props.disabled} />;

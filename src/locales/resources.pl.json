@@ -1,7 +1,11 @@
 {
     "RoleName": {
         "ADMIN": "Administrator",
-        "USER": "Użytkownik"
+        "USER": "Użytkownik",
+        "EMPLOYEE": "Pracownik",
+        "MEDIC": "Ratownik",
+        "DISPATCHER": "Dyspozytor",
+        "AMBULANCE_MANAGER": "Kierownik karetki"
     },
     "RhType": {
         "PLUS": "Plus",
@@ -12,6 +16,20 @@
         "B": "B",
         "ZERO": "ZERO",
         "AB": "AB"
+    },
+    "EmployeeType": {
+        "DISPATCHER": "Dyspozytor",
+        "MEDIC": "Ratownik",
+        "AMBULANCE_MANAGER": "Kierownik karetki"
+    },
+    "EmergencyType": {
+        "CAR_ACCIDENT": "Wypadek samochodowy",
+        "FLOOD": "Powódź",
+        "FIRE": "Pożar",
+        "UNKNOWN": "Nieznane",
+        "HEART_ATTACK": "Zawał serca",
+        "SUICIDE": "Samobójstwo",
+        "COVID": "Covid"
     },
     "AllergyType": {
         "SKIN_CONTACT": "Kontaktowa",
@@ -28,13 +46,321 @@
         "FAILURE": "Awaria",
         "MAINTENANCE": "Konserwacja",
         "AVAILABLE": "Dostępna",
-        "IN_ACTION": "W akcji",
-        "CREW_BRAKE": "CREW_BRAKE"
+        "ON_ACTION": "W akcji",
+        "CREW_BRAKE": "Przerwa zespołu"
     },
     "AmbulanceClass": {
         "BASIC": "Podstawowa",
         "SPECIAL": "Specjalna",
         "TRANSPORT": "Transportowa",
         "NEONATOLOGY": "Neonatologiczna"
+    },
+    "FacilityType": {
+        "HOSPITAL": "Szpital",
+        "POLICE_STATION": "Posterunk Policji",
+        "FIRE_UNIT": "Jednostka pożarna",
+        "GUARD_UNIT": "Jednostka wojskowa",
+        "AED": "AED"
+    },
+    "IncidentStatusType": {
+        "NEW": "Nowe",
+        "ASSIGNED": "Przypisane",
+        "ACCEPTED": "Zaakceptowane",
+        "REJECTED": "Odrzucone",
+        "CLOSED": "Zamknięte"
+    },
+    "ItemType": {
+        "SINGLE_USE": "Jednorazowe",
+        "MEDICAL": "Medyczne",
+        "MULTI_USE": "Wielorazowe",
+        "AMBULANCE_EQUIPMENT": "Wyposażenie karetki"
+    },
+    "TutorialType": {
+        "IN_CASE_OF_DEATH_EMERGENCY": "W przypadku bliskim śmierci",
+        "GENERAL": "Ogólne",
+        "COURSE": "Kurs"
+    },
+    "BackupType": {
+        "POLICE": "Policja",
+        "FIRE_FIGHTERS": "Straż pożarna",
+        "AMBULANCE": "Ambulans",
+        "POLICE_AMBULANCE": "Policja i ambulans",
+        "POLICE_FIRE": "Policja i straż pożarna",
+        "AMBULANCE_FIRE": "Ambulans i straż pożarna",
+        "POLICE_AMBULANCE_FIRE": "Policja, ambulans i straż pożarna"
+    },
+    "ItemUnit": {
+        "COUNT": "Sztuk",
+        "VOLUME": "Objętości",
+        "BOX": "Opakowań"
+    },
+    "VictimStatus": {
+        "STABLE": "Stabilny/a",
+        "UNSTABLE": "Niestabilny/a",
+        "DECEASED": "Zmarły/a"
+    },
+    "Gender": {
+        "MALE": "Mężczyzna",
+        "FEMALE": "Kobieta",
+        "OTHER": "Inna"
+    },
+    "Ambulance": {
+        "Ambulances": "Karetki",
+        "Ambulance": "Karetka",
+        "LicensePlate": "Numer rejestracyjny",
+        "Class": "Rodzaj karetki",
+        "Seats": "Maksymalna ilośc ratowników",
+        "Type": "Typ karetki",
+        "Status": "Status karetki",
+        "History": "Historia karetki",
+        "Path": "Trasa karetki",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć tą karetkę?",
+        "ChangingState": "Zmiana stanu karetki",
+        "ChangeState": "Zmień status karetki",
+        "Exists": "Karetka z tym numerem rejestracyjnym już istnieje.",
+        "SameState": "Karetka jest już w tym stanie",
+        "Adding": "Dodawanie karetki",
+        "Editing": "Edycja karetki",
+        "Add": "Dodaj karetkę",
+        "Incident": "Aktualne zgłoszenie",
+        "RelatedIncidents": "Powiązane zdarzenia"
+    },
+    "Report": {
+        "Reports": "Zgłoszenia",
+        "Report": "Zgłoszenie",
+        "Consious": "Ofiara jest przytomna?",
+        "Breathing": "Ofiara oddycha?",
+        "Date": "Data",
+        "Description": "Opis",
+        "Type": "Rodzaj zdarzenia",
+        "VictimsCount": "Liczba poszkodowanych",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć to zgłoszenie?",
+        "ConfirmCreate": "Czy na pewno chcesz zgłosić zdarzenie?",
+        "ConfirmEdit": "Czy na pewno chcesz zapisać te zmiany?",
+        "DangerScale": "Skala zagrożenia",
+        "StatusType": "Status zgłoszenia",
+        "Justification": "Uzasadnienie",
+        "BandCode": "Kod opaski",
+        "Create": "Zgłoś zdarzenie",
+        "Location": "Miejsce zdarzenia",
+        "Address": "Adres",
+        "Assign": "Przypisz karetkę",
+        "Assigned": "Przypisane",
+        "Details": "Szczegóły zdarzenia",
+        "Victims": "Poszkodowani"
+    },
+    "Person": {
+        "FirstName": "Imię",
+        "LastName": "Nazwisko",
+        "TrustedPerson": "Osoba zaufana",
+        "MedicalData": "Dane medyczne",
+        "UserData": "Dane użytkownika",
+        "PhoneNumber": "Numer telefonu",
+        "Birthdate": "Data urodzenia",
+        "Email": "Email",
+        "Password": "Hasło",
+        "StartDuty": "Rozpocznij zmianę",
+        "FinishDuty": "Zakończ zmianę",
+        "Account": "Konto",
+        "MyData": "Moje dane",
+        "Add": "Dodaj pracownika",
+        "Adding": "Dodawanie pracownika",
+        "Role": "Rola",
+        "Gender": "Płeć"
+    },
+    "Login": {
+        "Login": "Logowanie",
+        "SignIn": "Zaloguj się",
+        "Register": "Rejestracja",
+        "SignUp": "Zarejestruj się",
+        "CollectData": "Dlaczego zbieramy te dane?",
+        "NecessaryData": "Wszystkie powyższe dane są niezbędne do prawidłowego świadczenia usług.",
+        "LogOff": "Wyloguj",
+        "LoggedInto": "Pomyślnie zalogowano na konto",
+        "LoggedError": "Pomyślnie zalogowano, ale uprawnienia są zgubione.",
+        "LogOut": "Wylogowanie",
+        "LoggedOut": "Pomyślnie wylogowano z konta",
+        "AllCapabilities": "Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!",
+        "Error": "Błąd logowania"
+    },
+    "Allergy": {
+        "Allergies": "Alergie",
+        "Name": "Nazwa alergii",
+        "Type": "Rodzaj alergii",
+        "Other": "Dodatkowe informacje",
+        "Adding": "Dodawanie alergii",
+        "Editing": "Edycja alergii",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć tą alergię?"
+    },
+    "Disease": {
+        "Diseases": "Choroby",
+        "Name": "Nazwa choroby",
+        "ShareWithBand": "Udostępnione z opaski?",
+        "Description": "Opis choroby",
+        "Adding": "Dodawanie choroby",
+        "Editing": "Edycja choroby",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć tą chorobę?"
+    },
+    "Error": {
+        "Error": "Błąd",
+        "DifferentPasswords": "Powtórzone hasło różni się od oryginalnego.",
+        "RegistrationFailed": "Rejestracja nieudana. Spróbuj ponownie później.",
+        "NoResponseServer": "Odpowiedź serwera została uszkodzona lub częściowo zgubiona. Spróbuj ponownie.",
+        "UnknownError": "Wystąpił nieznany błąd. Spróbuj ponownie później.",
+        "IncorrectLogin": "Nieprawidłowy email lub hasło.",
+        "LoadingProblem": "Nastąpił problem z wczytaniem danych. Spróbuj ponownie.",
+        "EmptyValue": "Ta wartość nie może być pusta.",
+        "Past": "Można podać tylko datę w przeszłości.",
+        "Network": "Nie można się połączyć z serwerem. Sprawdź swoje połączenie z Internetem",
+        "PostRegisterFail": "Rejestracja się powiodła, ale nastąpił błąd przy logowaniu. Spróbuj się zalogować ponownie.",
+        "NoDispatcherFound": "Nie znaleziono dostępnego dyspozytora.",
+        "ScheduleEnd": "Podana godzina musi być większa od godziny rozpoczęcia.",
+        "MailNotFound": "Nie znaleziono podanego maila w naszej bazie danych.",
+        "IncorrectPassword": "Podane hasło jest nieprawidłowe.",
+        "IncorrectToken": "Podany token jest nieprawidłowy.",
+        "ExpiredToken": "Podany token jest przeterminowany.",
+        "LocationBlocked": "Wykorzystanie lokalizacji jest zablokowane dla tej witryny. Włącz tą opcję, jeśli chcesz, aby mapa była wyśrodkowana na Twojej lokalizacji.",
+        "NoData": "Nie znaleziono dostępnych danych."
+    },
+    "Blood": {
+        "Type": "Grupa krwi",
+        "Rh": "Grupa Rh"
+    },
+    "Password": {
+        "Check": "Powtórz nowe hasło",
+        "Change": "Zmiana hasła",
+        "Changed": "Twoje hasło zostało zmienione.",
+        "Old": "Stare hasło",
+        "New": "Nowe hasło",
+        "Forgot": "Nie pamiętam hasła",
+        "Reseting": "Odzyskiwanie hasła",
+        "Reseted": "Twoje hasło zostało zmienione.",
+        "Reset": "Zmień hasło",
+        "Email": "Wpisz adres email. Prześlemy specjalny token do zmiany hasła",
+        "Token": "Wpisz token, który otrzymałeś/aś email'em",
+        "Repeat": "Powtórz hasło"
+    },
+    "HomePage": {
+        "HomePage": "Strona główna",
+        "Report24h": "Zgłoszenia z ostatnich 24 godzin",
+        "Incidents": "Rodzaje zdarzeń",
+        "OpenMap": "Otwórz mapę",
+        "SaveLife": "Pomóż nam ratować ludzkie życia już teraz!",
+        "Welcome": "Witamy w GARY, w nowym najlepszym przyjacielu człowieka.",
+        "SeeAccident": "Widzisz wypadek? Zareaguj już teraz!",
+        "GARY": "GARY to Twój nowy najlepszy przyjaciel",
+        "CreateAccount": "Założenie konta jest proste i trwa tylko kilka minut, a dostęp do aplikacji może uratować Twoje życie.",
+        "ReportAccidentAnywhere": "Zgłoś zdarzenie z dowolnego miejsca",
+        "ReportAccidentFromApp": "Możesz zgłosić wypadek, atak terrorystyczny lub inne zdarzenie w dowolnym miejscu przez przeglądarkę lub aplikację mobilną.",
+        "GiveHelp": "Udziel pierwszej pomocy",
+        "WatchTutorials": "Przeglądaj liczne poradniki udzielania pierwszej pomocy i wykorzystaj nabytą wiedzę, żeby uratować czyjeś życie.",
+        "ReportIncident": "Zgłoś zdarzenie",
+        "Dispositor": "Strona główna",
+        "Admin": "Strona główna kierownika karetki",
+        "ChangeTheme": "Zmień motyw",
+        "AmbulanceAvailable": "Dostępne",
+        "AmbulanceUnavailable": "Niedostępne",
+        "AmbulancesAvailable": "Dostępne karetki",
+        "ReportAccepted": "Przyjęte",
+        "ReportPending": "Oczekujące/Odrzucone",
+        "ReportsAccepted": "Przyjęte zgłoszenia",
+        "AmbulancesState": "Stan karetek"
+    },
+    "Cookies": {
+        "Info": "Ta strona używa plików cookies. Podejmij jedyną słuszną decyzję.",
+        "Agree": "Zgadzam się"
+    },
+    "Facility": {
+        "Facilities": "Placówki",
+        "Facility": "Placówka",
+        "Name": "Nazwa placówki",
+        "Type": "Rodzaj placówki",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć tą placówkę?",
+        "Add": "Dodaj placówkę",
+        "Adding": "Dodawanie placówki",
+        "Editing": "Edycja placówki"
+    },
+    "Common": {
+        "Ok": "Ok",
+        "Flag": "Flaga",
+        "Icon": "Ikona",
+        "NoResults": "Brak wyników",
+        "Search": "Szukaj",
+        "Yes": "Tak",
+        "No": "Nie",
+        "Since": "Od",
+        "Until": "Do",
+        "Add": "Dodaj",
+        "Edit": "Edytuj",
+        "Back": "Wróć",
+        "Save": "Zapisz",
+        "SaveChanges": "Zapisz zmiany",
+        "Remove": "Usuń",
+        "Cancel": "Anuluj",
+        "Value": "Wartość",
+        "Details": "Szczegóły",
+        "Contents": "Spis treści",
+        "Thumbnail": "Miniaturka",
+        "Send": "Wyślij"
+    },
+    "Map": {
+        "Map": "Mapa",
+        "Filters": "Filtry",
+        "Location": "Lokalizacja"
+    },
+    "Tutorial": {
+        "Tutorials": "Poradniki",
+        "Opinion": "Jak pomocny okazał się ten poradnik? Podziel się swoją opinią.",
+        "Average": "Średnia ocena:"
+    },
+    "Equipment": {
+        "Equipment": "Wyposażenie",
+        "Ambulance": "Wyposażenie w karetce",
+        "Adding": "Dodawanie wyposażenia",
+        "Add": "Dodaj wyposażenie",
+        "Type": "Rodzaj wyposażenia",
+        "Name": "Nazwa wyposażenia",
+        "Description": "Opis",
+        "Manufacturer": "Producent",
+        "Expiration": "Data ważności",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć ten przedmiot?"
+    },
+    "Medic": {
+        "Medics": "Medycy",
+        "Assigned": "Przypisani medycy",
+        "Details": "Szczegóły ratownika",
+        "Assign": "Przypisz medyków",
+        "Unassign": "Wypisz"
+    },
+    "Schedule": {
+        "Schedule": "Grafik",
+        "Date": "Data",
+        "SetEvent": "Ustawianie czasu",
+        "Day1": "Pon.",
+        "Day2": "Wto.",
+        "Day3": "Śro.",
+        "Day4": "Czw.",
+        "Day5": "Pią."
+    },
+    "Backup": {
+        "Backup": "Dodatkowe wsparcie",
+        "Type": "Rodzaj wsparcia",
+        "Time": "Zaktualizowano",
+        "Accepted": "Zaakceptowane",
+        "Justification": "Uzasadnienie",
+        "ConfirmRemove": "Czy na pewno chcesz usunąć to wsparcie?",
+        "Create": "Dodaj wsparcie",
+        "Adding": "Dodawanie wsparcia",
+        "Editing": "Edycja wsparcia"
+    },
+    "Staff": {
+        "Schedules": "Grafik pracowników",
+        "Workers": "Lista pracowników"
+    },
+    "Victim": {
+        "Create": "Dodaj poszkodowanego",
+        "Status": "Stan",
+        "Adding": "Dodawanie poszkodowanego",
+        "Editing": "Edycja poszkodowanego"
     }
 }

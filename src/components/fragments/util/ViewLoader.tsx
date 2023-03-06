@@ -6,6 +6,7 @@ export interface ViewLoaderParams {
   element: JSX.Element
 }
 
+// Wrapper for components that have longer loads
 const ViewLoader = (props: Readonly<ViewLoaderParams>) => {
   if (props.isLoaded) {
     return props.element;

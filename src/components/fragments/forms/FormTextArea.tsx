@@ -6,6 +6,7 @@ export interface FormTextAreaParams extends TextControlParams<HTMLTextAreaElemen
   cols?: number
 }
 
+// Custom form text area component
 const FormTextArea = (props: Readonly<FormTextAreaParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>

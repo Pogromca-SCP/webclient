@@ -1,3 +1,4 @@
+// Contains type definitions shared in form components
 import { InnerClassParam } from "../sharedParams"
 import { ChangeEventHandler } from "react"
 

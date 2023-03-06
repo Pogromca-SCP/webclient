@@ -1,19 +1,21 @@
 import { useRoles } from "../../../hooks/useAuth";
-import { isDispositor, isDirector } from "../../../helpers/authHelper";
+import { hasPerm, ambulanceManagement, incidentInfo } from "../../../helpers/authHelper";
 import DispositorHome from "./DispositorHome";
 import AdminHome from "./AdminHome";
 import GuestHome from "./GuestHome";
 
+// Home page component
 const Home = () => {
   const roles = useRoles();
+  const ambulance = hasPerm(roles, ambulanceManagement);
+  const incident = hasPerm(roles, incidentInfo);
 
-  if (isDispositor(roles)) {
+  if (ambulance) {
+    return <AdminHome />;
+  } else if (incident) {
     return <DispositorHome />;
-  } else if (isDirector(roles)) {
-    return <AdminHome />;
   } else {
-    //return <GuestHome />;
-    return <AdminHome />;
+    return <GuestHome />;
   }
 };
 

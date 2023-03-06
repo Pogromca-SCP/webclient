@@ -5,17 +5,42 @@ import { useTranslation } from "react-i18next";
 import { FormGroup, Form } from "react-bootstrap";
 
 export interface EnumSelectParams extends SelectControlParams {
-  enum: EnumType
+  enum: EnumType,
+  onLoad?: (val: string) => void
 }
 
+// Enum constraint validation component
 const EnumSelect = (props: Readonly<EnumSelectParams>) => {
   const [values, setValues] = useState<string[]>([]);
   const { t } = useTranslation();
   const getter = props.enum.getter;
+  const loaded = props.onLoad;
 
   useEffect(() => {
-    getter().then(res => res.json()).then((data: string[]) => setValues(data)).catch(console.error);
-  }, [getter]);
+    if (values.length > 0) {
+      return;
+    }
+
+    const abort = new AbortController();
+
+    getter(abort).then(res => res.json()).then((data: string[]) => {
+      if (data) {
+        setValues(data);
+        
+        if (loaded && !props.value) {
+          loaded(data[0]);
+        }
+      } else {
+        console.error(`Couldn't load enum values for ${props.enum.name}`);
+      }
+    }).catch(err => {
+      if (!abort.signal.aborted) {
+        console.error(err);
+      }
+    });
+
+    return () => abort.abort();
+  }, [values, getter, loaded, props.value, props.enum.name]);
 
   return (
     <FormGroup controlId={props.id} className={props.className}>

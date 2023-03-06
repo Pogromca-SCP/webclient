@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { useDarkMode } from "./useDarkMode";
+import { useDarkMode, dark, light } from "./useDarkMode";
 import { useLocation } from "react-router-dom";
 
 // Default popup settings
 const defaultContext = {
-  update: (el: Readonly<JSX.Element>) => {}
+  update: (el: Readonly<JSX.Element> | null) => {}
 };
 
 // Popup hooks
@@ -24,7 +24,7 @@ export const PopupProvider = (props: Readonly<JSX.ElementChildrenAttribute>) => 
     }}>
       {popup ? (
         <>
-          <div className={`popup-container popup-${darkMode ? "dark" : "light"}`}>{popup}</div>
+          <div className={`popup-container popup-${darkMode ? dark : light}`}>{popup}</div>
           <div className="popup-cover" onClick={() => setPopup(null)} />
         </>
       ) : ""}

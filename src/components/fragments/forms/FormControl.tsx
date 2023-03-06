@@ -9,6 +9,7 @@ export interface FormControlParams extends TextControlParams<HTMLInputElement | 
   step?: string | number
 }
 
+// Custom form control component
 const FormControl = (props: Readonly<FormControlParams>) => {
   return (
     <FormGroup controlId={props.id} className={props.className}>

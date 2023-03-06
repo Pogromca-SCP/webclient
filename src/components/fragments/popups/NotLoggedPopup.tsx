@@ -1,17 +1,26 @@
+import { useTranslation } from "react-i18next";
 import { Container, Row } from "react-bootstrap";
 import NavButton from "../navigation/NavButton";
 
-const NotLoggedPopup = () => {
+export interface NotLoggedPopupParams {
+  redirect?: string
+}
+
+// Popup to use when user is not logged in
+const NotLoggedPopup = (props: Readonly<NotLoggedPopupParams>) => {
+  const { t } = useTranslation();
+  const redirect = props.redirect ? `/${props.redirect}` : "";
+
   return (
-    <Container className="mx-3 text-center">
+    <Container className="text-center">
       <Row className="mt-3">
-        <p>Chcesz móc korzystać ze wszystkich możliwości naszej platformy? Zaloguj się na swoje konto już teraz!</p>
+        <p>{t("Login.AllCapabilities")}</p>
       </Row>
       <Row className="mt-3 justify-content-center">
-        <NavButton className="w-50" to="/login">Zaloguj się</NavButton>
+        <NavButton className="w-50" to={`/login${redirect}`}>{t("Login.SignIn")}</NavButton>
       </Row>
       <Row className="my-3 justify-content-center">
-        <NavButton className="w-50" to="/register">Zarejestruj się</NavButton>
+        <NavButton className="w-50" to={`/register${redirect}`}>{t("Login.SignUp")}</NavButton>
       </Row>
     </Container>
   );
